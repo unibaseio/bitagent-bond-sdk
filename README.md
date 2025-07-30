@@ -12,6 +12,8 @@ const Token = bitagent
     )
     .token(input.token);
 const tokenData = await Token.getDetail();
+
+// binaryReverseMint: https://github.com/unibaseio/bitagent-bond-sdk/blob/main/src/utils/trade.ts#L97
 const amount =
     input.side === 'buy' ? binaryReverseMint({
             reserveAmount: wei(input.amount),
@@ -41,6 +43,7 @@ await Token.sell(tradeParams);
 
 ```js
 // WBNB --buy--> XTOKEN
+// binaryReverseMint: https://github.com/unibaseio/bitagent-bond-sdk/blob/main/src/utils/trade.ts#L97
 const tokenData = await Token.getDetail();
 const xtokenAmountOut = binaryReverseMint({
   reserveAmount: wei(input.wbnbAmount),
