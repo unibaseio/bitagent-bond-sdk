@@ -1,0 +1,75 @@
+{
+  "name": "@bitagent/sdk",
+  "files": [
+    "./dist/**/*",
+    "./src/**/*"
+  ],
+  "type": "module",
+  "license": "BSD-3-Clause",
+  "version": "1.2.6",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "browser": {
+    "./dist/index.mjs": "./dist/index.mjs",
+    "./dist/index.cjs": "./dist/index.cjs"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./node": {
+      "import": "./dist/node.mjs",
+      "require": "./dist/node.cjs",
+      "default": "./dist/node.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "docs:deploy": "",
+    "build": "npm run purge && npx pkgroll",
+    "prepublishOnly": "git push && npm run build",
+    "purge": "npx rimraf ./dist",
+    "test": "npx bun test",
+    "test:watch": "npx bun test --watch",
+    "hardhat": "NODE_ENV=hardhat npx bun test hardhat"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-viem": "^2.0.0",
+    "@openzeppelin/contracts": "^5.0.2",
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-dynamic-import-vars": "^2.1.2",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/bun": "^1.0.8",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "bun": "^1.0.25",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "hardhat": "^2.20.1",
+    "pkgroll": "^2.0.1",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@types/jsdom": "^21.1.6",
+    "@types/lodash": "^4.14.202",
+    "abitype": "^1.0.0",
+    "aws-sdk": "^2.1578.0",
+    "dotenv": "^16.4.5",
+    "jsdom": "^24.0.0",
+    "ky-universal": "^0.12.0",
+    "lodash": "^4.17.21",
+    "merkletreejs": "^0.3.11",
+    "pinata-web3": "^0.5.2",
+    "viem": "^2.32.0"
+  }
+}
