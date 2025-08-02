@@ -172,7 +172,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "1.2.6";
+var version = "1.2.5a";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -8425,7 +8425,7 @@ const v125_SDK_CONTRACT_ADDRESSES = {
     [chains.arbitrum.id]: "0x0000000000000000000000000000000000000000",
     [chains.avalanche.id]: "0x0000000000000000000000000000000000000000",
     [chains.polygon.id]: "0x0000000000000000000000000000000000000000",
-    [chains.bsc.id]: "0x187E536C5404dD472476B9e4C716878d359a506A",
+    [chains.bsc.id]: "0xC100FE7642005a4b87f1CBE727e6EA70F7356990",
     [chains.bscTestnet.id]: "0x872d3Cfc052aA4267A78fF5ae21138b7742824B2",
     [chains.base.id]: "0x0000000000000000000000000000000000000000",
     [chains.baseSepolia.id]: "0x0000000000000000000000000000000000000000",
@@ -8467,7 +8467,7 @@ const v125_SDK_CONTRACT_ADDRESSES = {
     [chains.arbitrum.id]: "0x0000000000000000000000000000000000000000",
     [chains.avalanche.id]: "0x0000000000000000000000000000000000000000",
     [chains.polygon.id]: "0x0000000000000000000000000000000000000000",
-    [chains.bsc.id]: "0xe4287a55a5512aE2cAb53bb1eFA4991ac7E2c537",
+    [chains.bsc.id]: "0xeD13BDD978EF64ddb0C94DA86464C20Dd85b4b26",
     [chains.bscTestnet.id]: "0x491d7411577eC1209e5B48251217Fc12F2f5c4B0",
     [chains.base.id]: "0x0000000000000000000000000000000000000000",
     [chains.baseSepolia.id]: "0x0000000000000000000000000000000000000000",
