@@ -106,6 +106,10 @@ export const BOND_ERROR_MESSAGES: Record<BondErrorNames, ErrorObjectType> = {
     message: 'There is nothing to claim at this time. Check back later or verify your entitlement.',
     reportToBugsnag: false,
   },
+  MCV2_ReferralFee__NothingToClaim: {
+    message: 'There is nothing to claim at this time. Check back later or verify your entitlement.',
+    reportToBugsnag: false,
+  },
   OwnableInvalidOwner: {
     message: 'The operation was attempted by an invalid owner. Only the contract owner can perform this action.',
     reportToBugsnag: true,
