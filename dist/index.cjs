@@ -172,7 +172,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "2.0.1";
+var version = "2.0.2";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
