@@ -34,10 +34,12 @@ import {
   ONEINCH_ABI,
   TOKENS,
   ZAP_ABI,
+  REFERRAL_ABI,
 } from './exports';
 
 export const abis: Record<ContractNames, Abi> = {
   BOND: BOND_ABI,
+  REFERRAL: REFERRAL_ABI,
   ERC20: ERC20_ABI,
   ERC1155: ERC1155_ABI,
   LOCKER: LOCKER_ABI,
