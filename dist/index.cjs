@@ -172,7 +172,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "2.1.0-a";
+var version = "2.1.0-b";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -372,18 +372,7 @@ class AirdropContainsInvalidWalletError extends BaseError {
 
 const REFERRAL_ABI = [
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "bond_",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "msgSender",
-        type: "address"
-      }
-    ],
+    inputs: [],
     stateMutability: "nonpayable",
     type: "constructor"
   },
@@ -437,7 +426,17 @@ const REFERRAL_ABI = [
   },
   {
     inputs: [],
+    name: "InvalidInitialization",
+    type: "error"
+  },
+  {
+    inputs: [],
     name: "MCV2_ReferralFee__NothingToClaim",
+    type: "error"
+  },
+  {
+    inputs: [],
+    name: "NotInitializing",
     type: "error"
   },
   {
@@ -450,6 +449,19 @@ const REFERRAL_ABI = [
     ],
     name: "SafeERC20FailedOperation",
     type: "error"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint64",
+        name: "version",
+        type: "uint64"
+      }
+    ],
+    name: "Initialized",
+    type: "event"
   },
   {
     anonymous: false,
@@ -872,6 +884,24 @@ const REFERRAL_ABI = [
     inputs: [
       {
         internalType: "address",
+        name: "bond_",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "msgSender",
+        type: "address"
+      }
+    ],
+    name: "initialize",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "",
         type: "address"
       }
@@ -1129,50 +1159,30 @@ const REFERRAL_ABI = [
 
 const BOND_ABI = [
   {
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor"
+  },
+  {
+    inputs: [],
+    name: "AccessControlBadConfirmation",
+    type: "error"
+  },
+  {
     inputs: [
       {
         internalType: "address",
-        name: "tokenImplementation",
+        name: "account",
         type: "address"
       },
       {
-        internalType: "address",
-        name: "multiTokenImplementation",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "protocolBeneficiary_",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "creationFee_",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "maxSteps",
-        type: "uint256"
-      },
-      {
-        internalType: "address",
-        name: "uniswapV3Factory_",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "positionManager_",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "rewardManager_",
-        type: "address"
+        internalType: "bytes32",
+        name: "neededRole",
+        type: "bytes32"
       }
     ],
-    stateMutability: "nonpayable",
-    type: "constructor"
+    name: "AccessControlUnauthorizedAccount",
+    type: "error"
   },
   {
     inputs: [
@@ -1204,6 +1214,11 @@ const BOND_ABI = [
   {
     inputs: [],
     name: "FailedInnerCall",
+    type: "error"
+  },
+  {
+    inputs: [],
+    name: "InvalidInitialization",
     type: "error"
   },
   {
@@ -1347,25 +1362,8 @@ const BOND_ABI = [
     type: "error"
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      }
-    ],
-    name: "OwnableInvalidOwner",
-    type: "error"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address"
-      }
-    ],
-    name: "OwnableUnauthorizedAccount",
+    inputs: [],
+    name: "NotInitializing",
     type: "error"
   },
   {
@@ -1474,6 +1472,19 @@ const BOND_ABI = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: "uint64",
+        name: "version",
+        type: "uint64"
+      }
+    ],
+    name: "Initialized",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
         internalType: "address",
         name: "token",
@@ -1517,62 +1528,6 @@ const BOND_ABI = [
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: "address",
-        name: "token",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string"
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "symbol",
-        type: "string"
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "uri",
-        type: "string"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "reserveToken",
-        type: "address"
-      }
-    ],
-    name: "MultiTokenCreated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "previousOwner",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address"
-      }
-    ],
-    name: "OwnershipTransferred",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: false,
         internalType: "address",
         name: "protocolBeneficiary",
@@ -1580,6 +1535,94 @@ const BOND_ABI = [
       }
     ],
     name: "ProtocolBeneficiaryUpdated",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "referralProgram",
+        type: "address"
+      }
+    ],
+    name: "ReferralProgramUpdated",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32"
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32"
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32"
+      }
+    ],
+    name: "RoleAdminChanged",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address"
+      }
+    ],
+    name: "RoleGranted",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address"
+      }
+    ],
+    name: "RoleRevoked",
     type: "event"
   },
   {
@@ -1708,6 +1751,114 @@ const BOND_ABI = [
     type: "function"
   },
   {
+    inputs: [],
+    name: "DEFAULT_ADMIN_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "PAUSER_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address[]",
+        name: "tokens",
+        type: "address[]"
+      }
+    ],
+    name: "approveReferralProgram",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
+    ],
+    name: "bondSettings",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "maxSupply",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "curveSupply",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "graduateMcap",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "poolLaunchFee",
+        type: "uint256"
+      },
+      {
+        internalType: "int24",
+        name: "poolTickSpacing",
+        type: "int24"
+      },
+      {
+        internalType: "uint24",
+        name: "poolFee",
+        type: "uint24"
+      },
+      {
+        internalType: "uint256",
+        name: "poolMintSlippage",
+        type: "uint256"
+      },
+      {
+        internalType: "uint160",
+        name: "sqrtPriceX96",
+        type: "uint160"
+      },
+      {
+        internalType: "uint24",
+        name: "tradingFeeRate",
+        type: "uint24"
+      },
+      {
+        internalType: "address",
+        name: "protocolBeneficiary",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "lockerRecipient",
+        type: "address"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
     inputs: [
       {
         internalType: "address",
@@ -1757,30 +1908,6 @@ const BOND_ABI = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "tokenBalance",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "reserveTokenBalance",
-        type: "uint256"
-      }
-    ],
-    name: "calculateSqrtPriceX96",
-    outputs: [
-      {
-        internalType: "uint160",
-        name: "sqrtPriceX96",
-        type: "uint160"
-      }
-    ],
-    stateMutability: "pure",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
         internalType: "address",
         name: "reserveToken",
         type: "address"
@@ -1789,79 +1916,6 @@ const BOND_ABI = [
     name: "claimRoyalties",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "name",
-            type: "string"
-          },
-          {
-            internalType: "string",
-            name: "symbol",
-            type: "string"
-          },
-          {
-            internalType: "string",
-            name: "uri",
-            type: "string"
-          }
-        ],
-        internalType: "struct MCV2_Bond.MultiTokenParams",
-        name: "tp",
-        type: "tuple"
-      },
-      {
-        components: [
-          {
-            internalType: "uint16",
-            name: "mintRoyalty",
-            type: "uint16"
-          },
-          {
-            internalType: "uint16",
-            name: "burnRoyalty",
-            type: "uint16"
-          },
-          {
-            internalType: "address",
-            name: "reserveToken",
-            type: "address"
-          },
-          {
-            internalType: "uint128",
-            name: "maxSupply",
-            type: "uint128"
-          },
-          {
-            internalType: "uint128[]",
-            name: "stepRanges",
-            type: "uint128[]"
-          },
-          {
-            internalType: "uint128[]",
-            name: "stepPrices",
-            type: "uint128[]"
-          }
-        ],
-        internalType: "struct MCV2_Bond.BondParams",
-        name: "bp",
-        type: "tuple"
-      }
-    ],
-    name: "createMultiToken",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address"
-      }
-    ],
-    stateMutability: "payable",
     type: "function"
   },
   {
@@ -1945,6 +1999,69 @@ const BOND_ABI = [
         internalType: "uint256",
         name: "",
         type: "uint256"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "defaultBondSettings",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "maxSupply",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "curveSupply",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "graduateMcap",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "poolLaunchFee",
+        type: "uint256"
+      },
+      {
+        internalType: "int24",
+        name: "poolTickSpacing",
+        type: "int24"
+      },
+      {
+        internalType: "uint24",
+        name: "poolFee",
+        type: "uint24"
+      },
+      {
+        internalType: "uint256",
+        name: "poolMintSlippage",
+        type: "uint256"
+      },
+      {
+        internalType: "uint160",
+        name: "sqrtPriceX96",
+        type: "uint160"
+      },
+      {
+        internalType: "uint24",
+        name: "tradingFeeRate",
+        type: "uint24"
+      },
+      {
+        internalType: "address",
+        name: "protocolBeneficiary",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "lockerRecipient",
+        type: "address"
       }
     ],
     stateMutability: "view",
@@ -2251,6 +2368,25 @@ const BOND_ABI = [
   {
     inputs: [
       {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32"
+      }
+    ],
+    name: "getRoleAdmin",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "wallet",
         type: "address"
@@ -2367,6 +2503,120 @@ const BOND_ABI = [
     type: "function"
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
+    ],
+    name: "graduatedTokenPools",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32"
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address"
+      }
+    ],
+    name: "grantRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32"
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address"
+      }
+    ],
+    name: "hasRole",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "tokenImplementation_",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "protocolBeneficiary_",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "lockerRecipient_",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "creationFee_",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "maxSteps_",
+        type: "uint256"
+      },
+      {
+        internalType: "address",
+        name: "uniswapV3Factory_",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "positionManager_",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "vaultManager_",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "uncxLPLocker_",
+        type: "address"
+      }
+    ],
+    name: "initialize",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
     inputs: [],
     name: "maxRoyaltyRange",
     outputs: [
@@ -2393,6 +2643,19 @@ const BOND_ABI = [
         internalType: "uint128",
         name: "",
         type: "uint128"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "minRoyaltyRange",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
       }
     ],
     stateMutability: "view",
@@ -2430,19 +2693,6 @@ const BOND_ABI = [
       }
     ],
     stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "owner",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address"
-      }
-    ],
-    stateMutability: "view",
     type: "function"
   },
   {
@@ -2491,10 +2741,58 @@ const BOND_ABI = [
     type: "function"
   },
   {
-    inputs: [],
-    name: "renounceOwnership",
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32"
+      },
+      {
+        internalType: "address",
+        name: "callerConfirmation",
+        type: "address"
+      }
+    ],
+    name: "renounceRole",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32"
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address"
+      }
+    ],
+    name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes4",
+        name: "interfaceId",
+        type: "bytes4"
+      }
+    ],
+    name: "supportsInterface",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "view",
     type: "function"
   },
   {
@@ -2555,6 +2853,19 @@ const BOND_ABI = [
     type: "function"
   },
   {
+    inputs: [],
+    name: "tokenImplementation",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
     inputs: [
       {
         internalType: "uint256",
@@ -2574,16 +2885,16 @@ const BOND_ABI = [
     type: "function"
   },
   {
-    inputs: [
+    inputs: [],
+    name: "uncxLPLocker",
+    outputs: [
       {
-        internalType: "address",
-        name: "newOwner",
+        internalType: "contract IUNCXLPLockerUniV3",
+        name: "",
         type: "address"
       }
     ],
-    name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function"
   },
   {
@@ -2620,6 +2931,81 @@ const BOND_ABI = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "maxSupply",
+            type: "uint256"
+          },
+          {
+            internalType: "uint256",
+            name: "curveSupply",
+            type: "uint256"
+          },
+          {
+            internalType: "uint256",
+            name: "graduateMcap",
+            type: "uint256"
+          },
+          {
+            internalType: "uint256",
+            name: "poolLaunchFee",
+            type: "uint256"
+          },
+          {
+            internalType: "int24",
+            name: "poolTickSpacing",
+            type: "int24"
+          },
+          {
+            internalType: "uint24",
+            name: "poolFee",
+            type: "uint24"
+          },
+          {
+            internalType: "uint256",
+            name: "poolMintSlippage",
+            type: "uint256"
+          },
+          {
+            internalType: "uint160",
+            name: "sqrtPriceX96",
+            type: "uint160"
+          },
+          {
+            internalType: "uint24",
+            name: "tradingFeeRate",
+            type: "uint24"
+          },
+          {
+            internalType: "address",
+            name: "protocolBeneficiary",
+            type: "address"
+          },
+          {
+            internalType: "address",
+            name: "lockerRecipient",
+            type: "address"
+          }
+        ],
+        internalType: "struct MCV2_Bond.BondSettings",
+        name: "newSettings_",
+        type: "tuple"
+      }
+    ],
+    name: "updateBondSettings",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "amount",
         type: "uint256"
@@ -2641,7 +3027,17 @@ const BOND_ABI = [
           },
           {
             internalType: "uint256",
+            name: "curveSupply",
+            type: "uint256"
+          },
+          {
+            internalType: "uint256",
             name: "graduateMcap",
+            type: "uint256"
+          },
+          {
+            internalType: "uint256",
+            name: "poolLaunchFee",
             type: "uint256"
           },
           {
@@ -2653,14 +3049,39 @@ const BOND_ABI = [
             internalType: "uint24",
             name: "poolFee",
             type: "uint24"
+          },
+          {
+            internalType: "uint256",
+            name: "poolMintSlippage",
+            type: "uint256"
+          },
+          {
+            internalType: "uint160",
+            name: "sqrtPriceX96",
+            type: "uint160"
+          },
+          {
+            internalType: "uint24",
+            name: "tradingFeeRate",
+            type: "uint24"
+          },
+          {
+            internalType: "address",
+            name: "protocolBeneficiary",
+            type: "address"
+          },
+          {
+            internalType: "address",
+            name: "lockerRecipient",
+            type: "address"
           }
         ],
-        internalType: "struct MCV2_Bond.GraduationSettings",
+        internalType: "struct MCV2_Bond.BondSettings",
         name: "newSettings_",
         type: "tuple"
       }
     ],
-    name: "updateGraduationSettings",
+    name: "updateDefaultBondSettings",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function"
@@ -2674,6 +3095,19 @@ const BOND_ABI = [
       }
     ],
     name: "updateMaxRoyaltyRange",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "ratio",
+        type: "uint256"
+      }
+    ],
+    name: "updateMinRoyaltyRange",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function"
@@ -2695,11 +3129,24 @@ const BOND_ABI = [
     inputs: [
       {
         internalType: "address",
+        name: "referralProgram_",
+        type: "address"
+      }
+    ],
+    name: "updateReferralProgram",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "newManager",
         type: "address"
       }
     ],
-    name: "updateRewardManager",
+    name: "updateVaultManager",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function"
@@ -2754,6 +3201,19 @@ const BOND_ABI = [
   },
   {
     inputs: [],
+    name: "vaultManager",
+    outputs: [
+      {
+        internalType: "contract VaultManager",
+        name: "",
+        type: "address"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
     name: "version",
     outputs: [
       {
@@ -2763,6 +3223,79 @@ const BOND_ABI = [
       }
     ],
     stateMutability: "pure",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "name",
+            type: "string"
+          },
+          {
+            internalType: "string",
+            name: "symbol",
+            type: "string"
+          },
+          {
+            internalType: "string",
+            name: "uri",
+            type: "string"
+          }
+        ],
+        internalType: "struct MCV2_Bond.MultiTokenParams",
+        name: "tp",
+        type: "tuple"
+      },
+      {
+        components: [
+          {
+            internalType: "uint16",
+            name: "mintRoyalty",
+            type: "uint16"
+          },
+          {
+            internalType: "uint16",
+            name: "burnRoyalty",
+            type: "uint16"
+          },
+          {
+            internalType: "address",
+            name: "reserveToken",
+            type: "address"
+          },
+          {
+            internalType: "uint128",
+            name: "maxSupply",
+            type: "uint128"
+          },
+          {
+            internalType: "uint128[]",
+            name: "stepRanges",
+            type: "uint128[]"
+          },
+          {
+            internalType: "uint128[]",
+            name: "stepPrices",
+            type: "uint128[]"
+          }
+        ],
+        internalType: "struct MCV2_Bond.BondParams",
+        name: "bp",
+        type: "tuple"
+      }
+    ],
+    name: "createMultiToken",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
+    ],
+    stateMutability: "payable",
     type: "function"
   }
 ];
@@ -5994,14 +6527,14 @@ const BOND_ERROR_MESSAGES = {
     message: "There is nothing to claim at this time. Check back later or verify your entitlement.",
     reportToBugsnag: false
   },
-  OwnableInvalidOwner: {
-    message: "The operation was attempted by an invalid owner. Only the contract owner can perform this action.",
-    reportToBugsnag: true
-  },
-  OwnableUnauthorizedAccount: {
-    message: "The account is unauthorized. This action is restricted to authorized accounts only.",
-    reportToBugsnag: true
-  },
+  // OwnableInvalidOwner: {
+  //   message: 'The operation was attempted by an invalid owner. Only the contract owner can perform this action.',
+  //   reportToBugsnag: true,
+  // },
+  // OwnableUnauthorizedAccount: {
+  //   message: 'The account is unauthorized. This action is restricted to authorized accounts only.',
+  //   reportToBugsnag: true,
+  // },
   SafeCastOverflowedUintDowncast: {
     message: "Overflow encountered during uint downcasting. Please check the values being cast.",
     reportToBugsnag: true
@@ -6021,6 +6554,20 @@ const BOND_ERROR_MESSAGES = {
   MCV2_Bond__SqrtPriceX96CalculationOverflow: {
     message: "SqrtPriceX96CalculationOverflow",
     reportToBugsnag: void 0
+  },
+  AccessControlBadConfirmation: {
+    message: "",
+    reportToBugsnag: false
+  },
+  AccessControlUnauthorizedAccount: {
+    message: "",
+    reportToBugsnag: false
+  },
+  NotInitializing: {
+    message: ""
+  },
+  InvalidInitialization: {
+    message: ""
   }
 };
 const REFERRAL_ERROR_MESSAGES = {
@@ -6051,6 +6598,12 @@ const REFERRAL_ERROR_MESSAGES = {
   AccessControlUnauthorizedAccount: {
     message: "",
     reportToBugsnag: false
+  },
+  NotInitializing: {
+    message: ""
+  },
+  InvalidInitialization: {
+    message: ""
   }
 };
 const ERC20_ERROR_MESSAGES = {

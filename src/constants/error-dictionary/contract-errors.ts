@@ -108,14 +108,14 @@ export const BOND_ERROR_MESSAGES: Record<BondErrorNames, ErrorObjectType> = {
     message: 'There is nothing to claim at this time. Check back later or verify your entitlement.',
     reportToBugsnag: false,
   },
-  OwnableInvalidOwner: {
-    message: 'The operation was attempted by an invalid owner. Only the contract owner can perform this action.',
-    reportToBugsnag: true,
-  },
-  OwnableUnauthorizedAccount: {
-    message: 'The account is unauthorized. This action is restricted to authorized accounts only.',
-    reportToBugsnag: true,
-  },
+  // OwnableInvalidOwner: {
+  //   message: 'The operation was attempted by an invalid owner. Only the contract owner can perform this action.',
+  //   reportToBugsnag: true,
+  // },
+  // OwnableUnauthorizedAccount: {
+  //   message: 'The account is unauthorized. This action is restricted to authorized accounts only.',
+  //   reportToBugsnag: true,
+  // },
   SafeCastOverflowedUintDowncast: {
     message: 'Overflow encountered during uint downcasting. Please check the values being cast.',
     reportToBugsnag: true,
@@ -135,6 +135,20 @@ export const BOND_ERROR_MESSAGES: Record<BondErrorNames, ErrorObjectType> = {
   MCV2_Bond__SqrtPriceX96CalculationOverflow: {
     message: 'SqrtPriceX96CalculationOverflow',
     reportToBugsnag: undefined,
+  },
+  AccessControlBadConfirmation: {
+    message: '',
+    reportToBugsnag: false,
+  },
+  AccessControlUnauthorizedAccount: {
+    message: '',
+    reportToBugsnag: false,
+  },
+  NotInitializing: {
+    message: '',
+  },
+  InvalidInitialization: {
+    message: '',
   },
 };
 export const REFERRAL_ERROR_MESSAGES: Record<ReferralErrorNames, ErrorObjectType> = {
@@ -165,6 +179,12 @@ export const REFERRAL_ERROR_MESSAGES: Record<ReferralErrorNames, ErrorObjectType
   AccessControlUnauthorizedAccount: {
     message: '',
     reportToBugsnag: false,
+  },
+  NotInitializing: {
+    message: '',
+  },
+  InvalidInitialization: {
+    message: '',
   },
 };
 

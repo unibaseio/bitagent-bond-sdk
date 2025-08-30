@@ -1,17 +1,6 @@
 export const REFERRAL_ABI = [
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'bond_',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: 'msgSender',
-        type: 'address',
-      },
-    ],
+    inputs: [],
     stateMutability: 'nonpayable',
     type: 'constructor',
   },
@@ -65,7 +54,17 @@ export const REFERRAL_ABI = [
   },
   {
     inputs: [],
+    name: 'InvalidInitialization',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'MCV2_ReferralFee__NothingToClaim',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'NotInitializing',
     type: 'error',
   },
   {
@@ -78,6 +77,19 @@ export const REFERRAL_ABI = [
     ],
     name: 'SafeERC20FailedOperation',
     type: 'error',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint64',
+        name: 'version',
+        type: 'uint64',
+      },
+    ],
+    name: 'Initialized',
+    type: 'event',
   },
   {
     anonymous: false,
@@ -494,6 +506,24 @@ export const REFERRAL_ABI = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'bond_',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: 'msgSender',
+        type: 'address',
+      },
+    ],
+    name: 'initialize',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
