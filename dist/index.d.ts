@@ -174,10 +174,6 @@ declare const BOND_ABI: readonly [{
     readonly name: "MCV2_Royalty__NothingToClaim";
     readonly type: "error";
 }, {
-    readonly inputs: readonly [];
-    readonly name: "MCV2_ReferralFee__NothingToClaim";
-    readonly type: "error";
-}, {
     readonly inputs: readonly [{
         readonly internalType: "address";
         readonly name: "owner";
@@ -2924,14 +2920,6 @@ declare const ZAP_ABI: readonly [{
     readonly type: "receive";
 }];
 
-type BondErrorNames = ExtractAbiErrorNames<typeof BOND_ABI>;
-type ERC20ErrorNames = ExtractAbiErrorNames<typeof ERC20_ABI>;
-type ERC1155ErrorNames = ExtractAbiErrorNames<typeof ERC1155_ABI>;
-type LockerErrorNames = ExtractAbiErrorNames<typeof LOCKER_ABI>;
-type MerkleErrorNames = ExtractAbiErrorNames<typeof MERKLE_ABI>;
-type ZapErrorNames = ExtractAbiErrorNames<typeof ZAP_ABI>;
-type AllContractErrorNames = BondErrorNames | ERC20ErrorNames | ERC1155ErrorNames | LockerErrorNames | MerkleErrorNames | ZapErrorNames;
-
 declare const REFERRAL_ABI: readonly [{
     readonly inputs: readonly [{
         readonly internalType: "address";
@@ -3510,6 +3498,15 @@ declare const REFERRAL_ABI: readonly [{
     readonly stateMutability: "nonpayable";
     readonly type: "function";
 }];
+
+type BondErrorNames = ExtractAbiErrorNames<typeof BOND_ABI>;
+type ERC20ErrorNames = ExtractAbiErrorNames<typeof ERC20_ABI>;
+type ReferralErrorNames = ExtractAbiErrorNames<typeof REFERRAL_ABI>;
+type ERC1155ErrorNames = ExtractAbiErrorNames<typeof ERC1155_ABI>;
+type LockerErrorNames = ExtractAbiErrorNames<typeof LOCKER_ABI>;
+type MerkleErrorNames = ExtractAbiErrorNames<typeof MERKLE_ABI>;
+type ZapErrorNames = ExtractAbiErrorNames<typeof ZAP_ABI>;
+type AllContractErrorNames = ReferralErrorNames | BondErrorNames | ERC20ErrorNames | ERC1155ErrorNames | LockerErrorNames | MerkleErrorNames | ZapErrorNames;
 
 declare const ONEINCH_ABI: readonly [{
     readonly inputs: readonly [{
@@ -4126,6 +4123,7 @@ type ErrorObjectType = {
     reportToBugsnag?: boolean;
 };
 declare const BOND_ERROR_MESSAGES: Record<BondErrorNames, ErrorObjectType>;
+declare const REFERRAL_ERROR_MESSAGES: Record<ReferralErrorNames, ErrorObjectType>;
 declare const ERC20_ERROR_MESSAGES: Record<ERC20ErrorNames, ErrorObjectType>;
 declare const ERC1155_ERROR_MESSAGES: Record<ERC1155ErrorNames, ErrorObjectType>;
 declare const LOCKER_ERROR_MESSAGES: Record<LockerErrorNames, ErrorObjectType>;
@@ -12461,4 +12459,4 @@ declare const supportedChainsMap: Record<LowerCaseChainNames, SdkSupportedChainI
 
 declare const bitagent: BitAgentSDK;
 
-export { BOND_ABI, BOND_ERROR_MESSAGES, type BaseToken, CHAINS, CHAIN_MAP, CHAIN_NAME_ID_MAP, COINGECKO_NETWORK_IDS, CONTRACT_ERROR_MESSAGES, type ChainType, type ContractNames, CurveEnum, DEFAULT_RANK_OPTIONS, ERC1155_ABI, ERC1155_ERROR_MESSAGES, ERC20_ABI, ERC20_ERROR_MESSAGES, LOCKER_ABI, LOCKER_ERROR_MESSAGES, type LowerCaseChainNames, MERKLE_ABI, MERKLE_ERROR_MESSAGES, type MainnetChain, ONEINCH_ABI, REFERRAL_ABI, type RPCList, RPCS, type SdkSupportedChainIds, TOKENS, type TableData, type TokenChain, type TokenSymbol, type TokenType, type Version, WRAPPED_NATIVE_TOKENS, type WrappedToken, ZAP_ABI, ZAP_ERROR_MESSAGES, abis, airdropContract, applyDecimals, binaryReverseBurn, binaryReverseMint, bitagent, bondContract, calculateArea, calculateRoyalty, chainIdToString, chainIdToViemChain, chainRPCFallbacks, chainStringToId, commify, computeCreate2Address, countDecimals, countLeadingZeros, createRandomAddress, erc1155Contract, erc20Contract, errorMessages, formatGraphPoint, generateCreateArgs, generateSteps, generateTableData, getBitAgentContractAddress, getChain, getSubscriptCharacter, getSubscriptNumber, getValueAfterLeadingZeros, graphTypes, handleScientificNotation, lockupContract, oneInchContract, precisionRound, shortenNumber, supportedChains, supportedChainsMap, toFixed, toNumber, truncateString, uncommify, wei, whitelistedTokens, zapContract };
+export { BOND_ABI, BOND_ERROR_MESSAGES, type BaseToken, CHAINS, CHAIN_MAP, CHAIN_NAME_ID_MAP, COINGECKO_NETWORK_IDS, CONTRACT_ERROR_MESSAGES, type ChainType, type ContractNames, CurveEnum, DEFAULT_RANK_OPTIONS, ERC1155_ABI, ERC1155_ERROR_MESSAGES, ERC20_ABI, ERC20_ERROR_MESSAGES, LOCKER_ABI, LOCKER_ERROR_MESSAGES, type LowerCaseChainNames, MERKLE_ABI, MERKLE_ERROR_MESSAGES, type MainnetChain, ONEINCH_ABI, REFERRAL_ABI, REFERRAL_ERROR_MESSAGES, type RPCList, RPCS, type SdkSupportedChainIds, TOKENS, type TableData, type TokenChain, type TokenSymbol, type TokenType, type Version, WRAPPED_NATIVE_TOKENS, type WrappedToken, ZAP_ABI, ZAP_ERROR_MESSAGES, abis, airdropContract, applyDecimals, binaryReverseBurn, binaryReverseMint, bitagent, bondContract, calculateArea, calculateRoyalty, chainIdToString, chainIdToViemChain, chainRPCFallbacks, chainStringToId, commify, computeCreate2Address, countDecimals, countLeadingZeros, createRandomAddress, erc1155Contract, erc20Contract, errorMessages, formatGraphPoint, generateCreateArgs, generateSteps, generateTableData, getBitAgentContractAddress, getChain, getSubscriptCharacter, getSubscriptNumber, getValueAfterLeadingZeros, graphTypes, handleScientificNotation, lockupContract, oneInchContract, precisionRound, shortenNumber, supportedChains, supportedChainsMap, toFixed, toNumber, truncateString, uncommify, wei, whitelistedTokens, zapContract };

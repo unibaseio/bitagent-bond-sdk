@@ -152,7 +152,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "2.1.0";
+var version = "2.1.0-a";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -1324,11 +1324,6 @@ const BOND_ABI = [
   {
     inputs: [],
     name: "MCV2_Royalty__NothingToClaim",
-    type: "error"
-  },
-  {
-    inputs: [],
-    name: "MCV2_ReferralFee__NothingToClaim",
     type: "error"
   },
   {
@@ -5979,10 +5974,6 @@ const BOND_ERROR_MESSAGES = {
     message: "There is nothing to claim at this time. Check back later or verify your entitlement.",
     reportToBugsnag: false
   },
-  MCV2_ReferralFee__NothingToClaim: {
-    message: "There is nothing to claim at this time. Check back later or verify your entitlement.",
-    reportToBugsnag: false
-  },
   OwnableInvalidOwner: {
     message: "The operation was attempted by an invalid owner. Only the contract owner can perform this action.",
     reportToBugsnag: true
@@ -6010,6 +6001,36 @@ const BOND_ERROR_MESSAGES = {
   MCV2_Bond__SqrtPriceX96CalculationOverflow: {
     message: "SqrtPriceX96CalculationOverflow",
     reportToBugsnag: void 0
+  }
+};
+const REFERRAL_ERROR_MESSAGES = {
+  AddressEmptyCode: {
+    message: "The provided address is empty. Please ensure you input a valid address.",
+    reportToBugsnag: false
+  },
+  AddressInsufficientBalance: {
+    message: "The address has an insufficient balance for this operation. Please check your balance and try again.",
+    reportToBugsnag: false
+  },
+  FailedInnerCall: {
+    message: "An internal contract call failed. Please review the contract logic or contact support.",
+    reportToBugsnag: false
+  },
+  MCV2_ReferralFee__NothingToClaim: {
+    message: "There is nothing to claim at this time. Check back later or verify your entitlement.",
+    reportToBugsnag: false
+  },
+  SafeERC20FailedOperation: {
+    message: "An operation with ERC20 tokens failed. Ensure the contract addresses and token details are correct.",
+    reportToBugsnag: false
+  },
+  AccessControlBadConfirmation: {
+    message: "",
+    reportToBugsnag: false
+  },
+  AccessControlUnauthorizedAccount: {
+    message: "",
+    reportToBugsnag: false
   }
 };
 const ERC20_ERROR_MESSAGES = {
@@ -6240,6 +6261,7 @@ const ZAP_ERROR_MESSAGES = {
 };
 const CONTRACT_ERROR_MESSAGES = {
   ...BOND_ERROR_MESSAGES,
+  ...REFERRAL_ERROR_MESSAGES,
   ...ERC20_ERROR_MESSAGES,
   ...ERC1155_ERROR_MESSAGES,
   ...LOCKER_ERROR_MESSAGES,
@@ -9529,4 +9551,4 @@ const supportedChainsMap = {
 };
 const bitagent = new BitAgentSDK();
 
-export { BOND_ABI, BOND_ERROR_MESSAGES, CHAINS, CHAIN_MAP, CHAIN_NAME_ID_MAP, COINGECKO_NETWORK_IDS, CONTRACT_ERROR_MESSAGES, CurveEnum, DEFAULT_RANK_OPTIONS, ERC1155_ABI, ERC1155_ERROR_MESSAGES, ERC20_ABI, ERC20_ERROR_MESSAGES, LOCKER_ABI, LOCKER_ERROR_MESSAGES, MERKLE_ABI, MERKLE_ERROR_MESSAGES, ONEINCH_ABI, REFERRAL_ABI, RPCS, TOKENS, WRAPPED_NATIVE_TOKENS, ZAP_ABI, ZAP_ERROR_MESSAGES, abis, airdropContract, applyDecimals, binaryReverseBurn, binaryReverseMint, bitagent, bondContract, calculateArea, calculateRoyalty, chainIdToString, chainIdToViemChain, chainRPCFallbacks, chainStringToId, commify, computeCreate2Address, countDecimals, countLeadingZeros, createRandomAddress, erc1155Contract, erc20Contract, errorMessages, formatGraphPoint, generateCreateArgs, generateSteps, generateTableData, getBitAgentContractAddress, getChain, getSubscriptCharacter, getSubscriptNumber, getValueAfterLeadingZeros, graphTypes, handleScientificNotation, lockupContract, oneInchContract, precisionRound, shortenNumber, supportedChains, supportedChainsMap, toFixed, toNumber, truncateString, uncommify, wei$1 as wei, whitelistedTokens, zapContract };
+export { BOND_ABI, BOND_ERROR_MESSAGES, CHAINS, CHAIN_MAP, CHAIN_NAME_ID_MAP, COINGECKO_NETWORK_IDS, CONTRACT_ERROR_MESSAGES, CurveEnum, DEFAULT_RANK_OPTIONS, ERC1155_ABI, ERC1155_ERROR_MESSAGES, ERC20_ABI, ERC20_ERROR_MESSAGES, LOCKER_ABI, LOCKER_ERROR_MESSAGES, MERKLE_ABI, MERKLE_ERROR_MESSAGES, ONEINCH_ABI, REFERRAL_ABI, REFERRAL_ERROR_MESSAGES, RPCS, TOKENS, WRAPPED_NATIVE_TOKENS, ZAP_ABI, ZAP_ERROR_MESSAGES, abis, airdropContract, applyDecimals, binaryReverseBurn, binaryReverseMint, bitagent, bondContract, calculateArea, calculateRoyalty, chainIdToString, chainIdToViemChain, chainRPCFallbacks, chainStringToId, commify, computeCreate2Address, countDecimals, countLeadingZeros, createRandomAddress, erc1155Contract, erc20Contract, errorMessages, formatGraphPoint, generateCreateArgs, generateSteps, generateTableData, getBitAgentContractAddress, getChain, getSubscriptCharacter, getSubscriptNumber, getValueAfterLeadingZeros, graphTypes, handleScientificNotation, lockupContract, oneInchContract, precisionRound, shortenNumber, supportedChains, supportedChainsMap, toFixed, toNumber, truncateString, uncommify, wei$1 as wei, whitelistedTokens, zapContract };

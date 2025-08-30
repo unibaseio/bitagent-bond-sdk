@@ -6,6 +6,7 @@ import {
   MerkleErrorNames,
   ZapErrorNames,
   AllContractErrorNames,
+  ReferralErrorNames,
 } from './contract-error-types';
 
 type ErrorObjectType = {
@@ -31,7 +32,8 @@ export const BOND_ERROR_MESSAGES: Record<BondErrorNames, ErrorObjectType> = {
     reportToBugsnag: true,
   },
   MCV2_Bond__CreationFeeTransactionFailed: {
-    message: 'The transaction for the creation fee has failed. Ensure you have enough funds and the fee is correctly set.',
+    message:
+      'The transaction for the creation fee has failed. Ensure you have enough funds and the fee is correctly set.',
     reportToBugsnag: true,
   },
   MCV2_Bond__ExceedMaxSupply: {
@@ -106,10 +108,6 @@ export const BOND_ERROR_MESSAGES: Record<BondErrorNames, ErrorObjectType> = {
     message: 'There is nothing to claim at this time. Check back later or verify your entitlement.',
     reportToBugsnag: false,
   },
-  MCV2_ReferralFee__NothingToClaim: {
-    message: 'There is nothing to claim at this time. Check back later or verify your entitlement.',
-    reportToBugsnag: false,
-  },
   OwnableInvalidOwner: {
     message: 'The operation was attempted by an invalid owner. Only the contract owner can perform this action.',
     reportToBugsnag: true,
@@ -128,16 +126,46 @@ export const BOND_ERROR_MESSAGES: Record<BondErrorNames, ErrorObjectType> = {
   },
   MCV2_Bond__InvalidGraduateReserveAmount: {
     message: 'InvalidGraduateReserveAmount',
-    reportToBugsnag: undefined
+    reportToBugsnag: undefined,
   },
   MCV2_Bond__SqrtPriceX96CalculationInvalidInput: {
     message: 'SqrtPriceX96CalculationInvalidInput',
-    reportToBugsnag: undefined
+    reportToBugsnag: undefined,
   },
   MCV2_Bond__SqrtPriceX96CalculationOverflow: {
     message: 'SqrtPriceX96CalculationOverflow',
-    reportToBugsnag: undefined
-  }
+    reportToBugsnag: undefined,
+  },
+};
+export const REFERRAL_ERROR_MESSAGES: Record<ReferralErrorNames, ErrorObjectType> = {
+  AddressEmptyCode: {
+    message: 'The provided address is empty. Please ensure you input a valid address.',
+    reportToBugsnag: false,
+  },
+  AddressInsufficientBalance: {
+    message: 'The address has an insufficient balance for this operation. Please check your balance and try again.',
+    reportToBugsnag: false,
+  },
+  FailedInnerCall: {
+    message: 'An internal contract call failed. Please review the contract logic or contact support.',
+    reportToBugsnag: false,
+  },
+  MCV2_ReferralFee__NothingToClaim: {
+    message: 'There is nothing to claim at this time. Check back later or verify your entitlement.',
+    reportToBugsnag: false,
+  },
+  SafeERC20FailedOperation: {
+    message: 'An operation with ERC20 tokens failed. Ensure the contract addresses and token details are correct.',
+    reportToBugsnag: false,
+  },
+  AccessControlBadConfirmation: {
+    message: '',
+    reportToBugsnag: false,
+  },
+  AccessControlUnauthorizedAccount: {
+    message: '',
+    reportToBugsnag: false,
+  },
 };
 
 // Follow a similar pattern for ERC20_ERROR_MESSAGES, ERC1155_ERROR_MESSAGES, LOCKER_ERROR_MESSAGES, MERKLE_ERROR_MESSAGES, ZAP_ERROR_MESSAGES, and V1_WRAPPER_ERROR_MESSAGES.
@@ -374,6 +402,7 @@ export const ZAP_ERROR_MESSAGES: Record<ZapErrorNames, ErrorObjectType> = {
 
 export const CONTRACT_ERROR_MESSAGES: Record<AllContractErrorNames, ErrorObjectType> = {
   ...BOND_ERROR_MESSAGES,
+  ...REFERRAL_ERROR_MESSAGES,
   ...ERC20_ERROR_MESSAGES,
   ...ERC1155_ERROR_MESSAGES,
   ...LOCKER_ERROR_MESSAGES,

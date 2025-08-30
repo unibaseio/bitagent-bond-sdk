@@ -5,15 +5,18 @@ import { ERC20_ABI } from '../abis/erc20';
 import { LOCKER_ABI } from '../abis/locker';
 import { MERKLE_ABI } from '../abis/merkle';
 import { ZAP_ABI } from '../abis/zap';
+import { REFERRAL_ABI } from '../abis/referral';
 
 export type BondErrorNames = ExtractAbiErrorNames<typeof BOND_ABI>;
 export type ERC20ErrorNames = ExtractAbiErrorNames<typeof ERC20_ABI>;
+export type ReferralErrorNames = ExtractAbiErrorNames<typeof REFERRAL_ABI>;
 export type ERC1155ErrorNames = ExtractAbiErrorNames<typeof ERC1155_ABI>;
 export type LockerErrorNames = ExtractAbiErrorNames<typeof LOCKER_ABI>;
 export type MerkleErrorNames = ExtractAbiErrorNames<typeof MERKLE_ABI>;
 export type ZapErrorNames = ExtractAbiErrorNames<typeof ZAP_ABI>;
 
 export type AllContractErrorNames =
+  | ReferralErrorNames
   | BondErrorNames
   | ERC20ErrorNames
   | ERC1155ErrorNames

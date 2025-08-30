@@ -218,12 +218,6 @@ export const BOND_ABI = [
     type: 'error',
   },
   {
-   inputs: [],
-    name: 'MCV2_ReferralFee__NothingToClaim',
-    type: 'error', 
-
-  },
-  {
     inputs: [
       {
         internalType: 'address',
