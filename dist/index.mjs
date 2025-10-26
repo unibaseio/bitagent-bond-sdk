@@ -152,7 +152,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "3.0.1";
+var version = "3.0.1a";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -6491,7 +6491,7 @@ const v300_SDK_CONTRACT_ADDRESSES = {
     [ham.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8"
   }
 };
-({
+const v301_SDK_CONTRACT_ADDRESSES = {
   ERC20: {
     [mainnet.id]: "0x0000000000000000000000000000000000000000",
     [optimism.id]: "0x0000000000000000000000000000000000000000",
@@ -6660,7 +6660,7 @@ const v300_SDK_CONTRACT_ADDRESSES = {
     [cyber.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8",
     [ham.id]: "0x0AdDd25a91563696D8567Df78D5A01C9a991F9B8"
   }
-});
+};
 const VERSION_TO_SDK_CONTRACT_ADDRESSES = {
   "0.1.0": SDK_CONTRACT_ADDRESSES,
   "1.2.4": v124_SDK_CONTRACT_ADDRESSES,
@@ -6673,7 +6673,7 @@ const VERSION_TO_SDK_CONTRACT_ADDRESSES = {
   "2.1.1": v211_SDK_CONTRACT_ADDRESSES,
   "2.1.2": v212_SDK_CONTRACT_ADDRESSES,
   "3.0.0": v300_SDK_CONTRACT_ADDRESSES,
-  "3.0.1": v300_SDK_CONTRACT_ADDRESSES
+  "3.0.1": v301_SDK_CONTRACT_ADDRESSES
 };
 function getBitAgentContractAddress(contractName, chainId, version = "2.1.2") {
   let contractAddress = VERSION_TO_SDK_CONTRACT_ADDRESSES[version][contractName][chainId];
