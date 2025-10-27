@@ -20,7 +20,7 @@ export function computeCreate2Address(
   );
   const hexedSymbol = stringToHex(tokenSymbol);
 
-  const packed: `0x${string}` = `0x${[bondAddress, hexedSymbol, creator]
+  const packed: `0x${string}` = `0x${[creator, hexedSymbol, bondAddress]
     .map((x) => x?.replace('0x', ''))
     .join('')
     .toLowerCase()}`;
