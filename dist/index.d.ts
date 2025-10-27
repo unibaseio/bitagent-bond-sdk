@@ -1,6 +1,6 @@
 import { ExtractAbiErrorNames } from 'abitype';
 import * as viem from 'viem';
-import { Chain, HttpTransportConfig, FallbackTransportConfig, PublicClient, WalletClient, Abi, ContractFunctionName, ContractFunctionArgs, TransactionReceipt, ReadContractReturnType } from 'viem';
+import { Chain, HttpTransportConfig, FallbackTransportConfig, PublicClient, WalletClient, Abi, ContractFunctionName, ContractFunctionArgs, TransactionReceipt, Address, ReadContractReturnType } from 'viem';
 export { Abi } from 'viem';
 import * as chains from 'viem/chains';
 import { sepolia, blastSepolia, avalancheFuji, cyberTestnet } from 'viem/chains';
@@ -12426,6 +12426,7 @@ type TokenHelperConstructorParams = {
     chainId: SdkSupportedChainIds;
     tokenType: TokenType;
     version: Version;
+    creator: Address;
 };
 type TokenCreateAirdropParams = {
     title: string;
@@ -12723,8 +12724,8 @@ declare class Utils {
 
 type NetworkReturnType = Omit<Client, '_getPublicClient'> & {
     getPublicClient: () => PublicClient;
-    token: (symbolOrAddress: string) => ERC20;
-    nft: (symbolOrAddress: string) => ERC1155;
+    token: (symbolOrAddress: string, creator: Address) => ERC20;
+    nft: (symbolOrAddress: string, creator: Address) => ERC1155;
     airdrop: Airdrop;
     lockup: Lockup;
     bond: Bond;
@@ -12799,7 +12800,7 @@ declare function generateCreateArgs(params: CreateTokenParams & {
     };
 };
 
-declare function computeCreate2Address(chainId: number, tokenType: TokenType, tokenSymbol: string, version: Version): `0x${string}`;
+declare function computeCreate2Address(chainId: number, tokenType: TokenType, tokenSymbol: string, creator: Address, version: Version): `0x${string}`;
 declare function createRandomAddress(): `0x${string}`;
 
 declare const enum CurveEnum {

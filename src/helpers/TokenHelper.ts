@@ -1,6 +1,12 @@
 import MerkleTree from 'merkletreejs';
 import { Chain, isAddress, keccak256, maxUint256 } from 'viem';
-import { ContractNames, SdkSupportedChainIds, TokenType, Version, getBitAgentContractAddress } from '../constants/contracts';
+import {
+  ContractNames,
+  SdkSupportedChainIds,
+  TokenType,
+  Version,
+  getBitAgentContractAddress,
+} from '../constants/contracts';
 import { bondContract, erc1155Contract, erc20Contract, zapContract } from '../contracts';
 import {
   AirdropContainsInvalidWalletError,
@@ -42,12 +48,12 @@ export class Token<T extends TokenType> {
   protected chainId: SdkSupportedChainIds;
 
   constructor(params: TokenHelperConstructorParams) {
-    const { symbolOrAddress, chainId, tokenType, version } = params;
+    const { symbolOrAddress, chainId, tokenType, version, creator } = params;
 
     if (isAddress(symbolOrAddress)) {
       this.tokenAddress = symbolOrAddress;
     } else {
-      this.tokenAddress = computeCreate2Address(chainId, tokenType, symbolOrAddress, version);
+      this.tokenAddress = computeCreate2Address(chainId, tokenType, symbolOrAddress, creator, version);
       this.symbol = symbolOrAddress;
     }
 

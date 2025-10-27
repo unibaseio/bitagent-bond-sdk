@@ -1,4 +1,4 @@
-import { PublicClient, WalletClient } from 'viem';
+import { Address, PublicClient, WalletClient } from 'viem';
 import { InvalidClientError } from './errors/sdk.errors';
 import { LowerCaseChainNames, SdkSupportedChainIds, Version, chainStringToId } from './exports';
 import { Bond } from './helpers/BondHelper';
@@ -12,8 +12,8 @@ import { Utils } from './helpers/UtilsHelper';
 
 type NetworkReturnType = Omit<Client, '_getPublicClient'> & {
   getPublicClient: () => PublicClient;
-  token: (symbolOrAddress: string) => ERC20;
-  nft: (symbolOrAddress: string) => ERC1155;
+  token: (symbolOrAddress: string, creator: Address) => ERC20;
+  nft: (symbolOrAddress: string, creator: Address) => ERC1155;
   airdrop: Airdrop;
   lockup: Lockup;
   bond: Bond;
@@ -25,7 +25,7 @@ export class BitAgentSDK {
   public ipfs = new Ipfs();
   public utils = new Utils();
 
-  public network(id: SdkSupportedChainIds | LowerCaseChainNames, version: Version = "0.1.0"): NetworkReturnType {
+  public network(id: SdkSupportedChainIds | LowerCaseChainNames, version: Version = '0.1.0'): NetworkReturnType {
     let chainId: SdkSupportedChainIds;
 
     if (typeof id === 'string') {
@@ -37,25 +37,27 @@ export class BitAgentSDK {
     return this.withClientHelper(this.wallet, chainId, version);
   }
 
-  private withClientHelper(clientHelper: Client, chainId: SdkSupportedChainIds, version: Version ) {
+  private withClientHelper(clientHelper: Client, chainId: SdkSupportedChainIds, version: Version) {
     return Object.assign(clientHelper, {
       getPublicClient(): PublicClient {
         return clientHelper._getPublicClient(chainId);
       },
 
-      token: (symbolOrAddress: string) => {
+      token: (symbolOrAddress: string, creator: Address) => {
         return new ERC20({
           symbolOrAddress,
           chainId,
-          version
+          version,
+          creator,
         });
       },
 
-      nft: (symbolOrAddress: string) => {
+      nft: (symbolOrAddress: string, creator: Address) => {
         return new ERC1155({
           symbolOrAddress,
           chainId,
-          version
+          version,
+          creator,
         });
       },
 

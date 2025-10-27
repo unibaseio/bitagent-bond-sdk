@@ -152,7 +152,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "3.1.0";
+var version = "3.1.1";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -9652,7 +9652,7 @@ class Bond {
   }
 }
 
-function computeCreate2Address(chainId, tokenType, tokenSymbol, version) {
+function computeCreate2Address(chainId, tokenType, tokenSymbol, creator, version) {
   const bondAddress = getBitAgentContractAddress("BOND", chainId, version);
   const tokenImplementation = getBitAgentContractAddress(
     tokenType === "ERC20" ? "ERC20" : "ERC1155",
@@ -9660,7 +9660,7 @@ function computeCreate2Address(chainId, tokenType, tokenSymbol, version) {
     version
   );
   const hexedSymbol = stringToHex(tokenSymbol);
-  const packed = `0x${[bondAddress, hexedSymbol].map((x) => x?.replace("0x", "")).join("").toLowerCase()}`;
+  const packed = `0x${[bondAddress, hexedSymbol, creator].map((x) => x?.replace("0x", "")).join("").toLowerCase()}`;
   const salt = keccak256(packed);
   const creationCode = [
     "0x3d602d80600a3d3981f3363d3d373d3d3d363d73",
@@ -10291,11 +10291,11 @@ class Token {
   version;
   chainId;
   constructor(params) {
-    const { symbolOrAddress, chainId, tokenType, version } = params;
+    const { symbolOrAddress, chainId, tokenType, version, creator } = params;
     if (isAddress(symbolOrAddress)) {
       this.tokenAddress = symbolOrAddress;
     } else {
-      this.tokenAddress = computeCreate2Address(chainId, tokenType, symbolOrAddress, version);
+      this.tokenAddress = computeCreate2Address(chainId, tokenType, symbolOrAddress, creator, version);
       this.symbol = symbolOrAddress;
     }
     this.chain = getChain(chainId);
@@ -10974,18 +10974,20 @@ class BitAgentSDK {
       getPublicClient() {
         return clientHelper._getPublicClient(chainId);
       },
-      token: (symbolOrAddress) => {
+      token: (symbolOrAddress, creator) => {
         return new ERC20({
           symbolOrAddress,
           chainId,
-          version
+          version,
+          creator
         });
       },
-      nft: (symbolOrAddress) => {
+      nft: (symbolOrAddress, creator) => {
         return new ERC1155({
           symbolOrAddress,
           chainId,
-          version
+          version,
+          creator
         });
       },
       airdrop: new Airdrop(chainId, version),

@@ -1,20 +1,26 @@
 import { randomBytes } from 'crypto';
-import { bytesToHex, getAddress, hexToBytes, hexToString, keccak256, stringToHex } from 'viem';
+import { bytesToHex, getAddress, hexToBytes, hexToString, keccak256, stringToHex, Address } from 'viem';
 import { getBitAgentContractAddress, SdkSupportedChainIds, TokenType, Version } from '../constants/contracts';
 
 // our test code uses web3 library's soliditySha3 method
 // below is our code to generate the same hash using "viem" library
 // https://github.com/web3/web3.js/blob/f860b0481d7c1ef09ddaeb33098b2253ca694150/packages/web3-utils/src/hash.ts#L346C17-L346C17
-export function computeCreate2Address(chainId: number, tokenType: TokenType, tokenSymbol: string, version: Version) {
+export function computeCreate2Address(
+  chainId: number,
+  tokenType: TokenType,
+  tokenSymbol: string,
+  creator: Address,
+  version: Version,
+) {
   const bondAddress = getBitAgentContractAddress('BOND', chainId as SdkSupportedChainIds, version);
   const tokenImplementation = getBitAgentContractAddress(
     tokenType === 'ERC20' ? 'ERC20' : 'ERC1155',
     chainId as SdkSupportedChainIds,
-    version
+    version,
   );
   const hexedSymbol = stringToHex(tokenSymbol);
 
-  const packed: `0x${string}` = `0x${[bondAddress, hexedSymbol]
+  const packed: `0x${string}` = `0x${[bondAddress, hexedSymbol, creator]
     .map((x) => x?.replace('0x', ''))
     .join('')
     .toLowerCase()}`;

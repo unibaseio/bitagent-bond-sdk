@@ -1,3 +1,4 @@
+import { Address } from 'viem';
 import { SdkSupportedChainIds, TokenType, Version } from '../exports';
 import { WriteTransactionCallbacks } from './transactions.types';
 
@@ -5,7 +6,8 @@ export type TokenHelperConstructorParams = {
   symbolOrAddress: string;
   chainId: SdkSupportedChainIds;
   tokenType: TokenType;
-  version: Version
+  version: Version;
+  creator: Address;
 };
 
 export type TokenCreateAirdropParams = {
