@@ -172,7 +172,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "3.1.2";
+var version = "3.1.3";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -6860,7 +6860,7 @@ const v310_SDK_CONTRACT_ADDRESSES = {
     [chains.avalanche.id]: "0x0000000000000000000000000000000000000000",
     [chains.polygon.id]: "0x0000000000000000000000000000000000000000",
     [chains.bsc.id]: "0xB3203E35c9c481c86423de81cEC8D70cFfb84537",
-    [chains.bscTestnet.id]: "0xB1992C4e3a74C553BcFc9245853292a8c96137c7",
+    [chains.bscTestnet.id]: "0xcBa44BB96BE7937B620c4638F9Da6B49055E4D65",
     [chains.base.id]: "0x0000000000000000000000000000000000000000",
     [chains.baseSepolia.id]: "0x0000000000000000000000000000000000000000",
     [chains.sepolia.id]: "0x0000000000000000000000000000000000000000",

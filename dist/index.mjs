@@ -152,7 +152,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "3.1.2";
+var version = "3.1.3";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -6840,7 +6840,7 @@ const v310_SDK_CONTRACT_ADDRESSES = {
     [avalanche.id]: "0x0000000000000000000000000000000000000000",
     [polygon.id]: "0x0000000000000000000000000000000000000000",
     [bsc.id]: "0xB3203E35c9c481c86423de81cEC8D70cFfb84537",
-    [bscTestnet.id]: "0xB1992C4e3a74C553BcFc9245853292a8c96137c7",
+    [bscTestnet.id]: "0xcBa44BB96BE7937B620c4638F9Da6B49055E4D65",
     [base.id]: "0x0000000000000000000000000000000000000000",
     [baseSepolia.id]: "0x0000000000000000000000000000000000000000",
     [sepolia.id]: "0x0000000000000000000000000000000000000000",
