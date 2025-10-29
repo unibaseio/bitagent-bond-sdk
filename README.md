@@ -56,7 +56,7 @@
     const multiFactor = parseEther('1');
     const amount =
       input.side === 'buy'
-        ? (await Token.getSellEstimation(wei(input.amount)))[0]
+        ? (await Token.getBuyEstimation(wei(input.amount)))[0]
         : binaryReverseBurn({
             reserveAmount: wei(input.amount),
             bondSteps: tokenData.steps,
