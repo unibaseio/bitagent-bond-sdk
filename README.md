@@ -1,5 +1,73 @@
 # BitAgent Bond Contract SDK
 
+## getAmountOut
+```js
+  const getAmountOut = async (input: TradeArgs) => {
+    const publicClient = createPublicClient({
+      chain: extractChain({
+        chains,
+        id: input.chainId as SupportedChainIds,
+      }),
+      transport: http(),
+    });
+    const Token = bitagent
+      .withPublicClient(publicClient)
+      .network(
+        input.chainId as SupportedChainIds,
+        fixedVersion(input.version) as Version
+      )
+      .token(input.token, input.creator);
+    const tokenData = await Token.getDetail();
+    const multiFactor = parseEther('1');
+    const amount =
+      input.side === 'buy'
+        ? binaryReverseMint({
+            reserveAmount: wei(input.amount),
+            bondSteps: tokenData.steps,
+            currentSupply: tokenData.info.currentSupply,
+            maxSupply: tokenData.info.maxSupply,
+            multiFactor,
+            mintRoyalty: tokenData.mintRoyalty,
+            slippage: 0,
+          })
+        : (await Token.getSellEstimation(wei(input.amount)))[0];
+    return amount;
+  };
+```
+
+## getAmountIn
+```js
+  const getAmountIn = async (input: TradeArgs) => {
+    const publicClient = createPublicClient({
+      chain: extractChain({
+        chains,
+        id: input.chainId as SupportedChainIds,
+      }),
+      transport: http(),
+    });
+    const Token = bitagent
+      .withPublicClient(publicClient)
+      .network(
+        input.chainId as SupportedChainIds,
+        fixedVersion(input.version) as Version
+      )
+      .token(input.token, input.creator);
+    const tokenData = await Token.getDetail();
+    const multiFactor = parseEther('1');
+    const amount =
+      input.side === 'buy'
+        ? (await Token.getSellEstimation(wei(input.amount)))[0]
+        : binaryReverseBurn({
+            reserveAmount: wei(input.amount),
+            bondSteps: tokenData.steps,
+            currentSupply: tokenData.info.currentSupply,
+            multiFactor,
+            burnRoyalty: tokenData.mintRoyalty,
+            slippage: 0,
+          });
+    return amount;
+  };
+```
 ## Trade
 
 ```js
