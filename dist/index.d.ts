@@ -248,6 +248,16 @@ declare const BOND_ABI: readonly [{
 }, {
     readonly anonymous: false;
     readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "adapter";
+        readonly type: "address";
+    }];
+    readonly name: "DexAdapterUpdated";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
         readonly indexed: false;
         readonly internalType: "uint64";
         readonly name: "version";
@@ -459,6 +469,41 @@ declare const BOND_ABI: readonly [{
         readonly type: "uint256";
     }];
     readonly name: "TokenGraduated";
+    readonly type: "event";
+}, {
+    readonly anonymous: false;
+    readonly inputs: readonly [{
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "token";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }, {
+        readonly indexed: true;
+        readonly internalType: "bytes32";
+        readonly name: "poolId";
+        readonly type: "bytes32";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "lpTokenId";
+        readonly type: "uint256";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "tokenAmount";
+        readonly type: "uint256";
+    }, {
+        readonly indexed: false;
+        readonly internalType: "uint256";
+        readonly name: "reserveTokenAmount";
+        readonly type: "uint256";
+    }];
+    readonly name: "TokenGraduatedV4";
     readonly type: "event";
 }, {
     readonly inputs: readonly [];
@@ -712,6 +757,16 @@ declare const BOND_ABI: readonly [{
     }, {
         readonly internalType: "address";
         readonly name: "lockerRecipient";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "dexAdapter";
+    readonly outputs: readonly [{
+        readonly internalType: "contract IDexAdapter";
+        readonly name: "";
         readonly type: "address";
     }];
     readonly stateMutability: "view";
@@ -1030,22 +1085,28 @@ declare const BOND_ABI: readonly [{
 }, {
     readonly inputs: readonly [{
         readonly internalType: "address";
-        readonly name: "reserveToken";
+        readonly name: "";
         readonly type: "address";
-    }, {
+    }];
+    readonly name: "graduatedTokenLpIds";
+    readonly outputs: readonly [{
         readonly internalType: "uint256";
-        readonly name: "start";
-        readonly type: "uint256";
-    }, {
-        readonly internalType: "uint256";
-        readonly name: "stop";
+        readonly name: "";
         readonly type: "uint256";
     }];
-    readonly name: "getTokensByReserveToken";
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly name: "graduatedTokenPoolIds";
     readonly outputs: readonly [{
-        readonly internalType: "address[]";
-        readonly name: "addresses";
-        readonly type: "address[]";
+        readonly internalType: "bytes32";
+        readonly name: "";
+        readonly type: "bytes32";
     }];
     readonly stateMutability: "view";
     readonly type: "function";
@@ -1126,7 +1187,7 @@ declare const BOND_ABI: readonly [{
         readonly type: "address";
     }, {
         readonly internalType: "address";
-        readonly name: "vaultManager_";
+        readonly name: "lockerManager_";
         readonly type: "address";
     }, {
         readonly internalType: "address";
@@ -1136,6 +1197,16 @@ declare const BOND_ABI: readonly [{
     readonly name: "initialize";
     readonly outputs: readonly [];
     readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "lockerManager";
+    readonly outputs: readonly [{
+        readonly internalType: "contract ILockerManager";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "view";
     readonly type: "function";
 }, {
     readonly inputs: readonly [];
@@ -1198,6 +1269,20 @@ declare const BOND_ABI: readonly [{
     readonly stateMutability: "nonpayable";
     readonly type: "function";
 }, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly name: "poolVersionOf";
+    readonly outputs: readonly [{
+        readonly internalType: "uint8";
+        readonly name: "";
+        readonly type: "uint8";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
     readonly inputs: readonly [];
     readonly name: "positionManager";
     readonly outputs: readonly [{
@@ -1256,6 +1341,16 @@ declare const BOND_ABI: readonly [{
         readonly type: "address";
     }];
     readonly name: "revokeRole";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "adapter";
+        readonly type: "address";
+    }];
+    readonly name: "setDexAdapter";
     readonly outputs: readonly [];
     readonly stateMutability: "nonpayable";
     readonly type: "function";
@@ -1501,6 +1596,16 @@ declare const BOND_ABI: readonly [{
     readonly type: "function";
 }, {
     readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "newManager";
+        readonly type: "address";
+    }];
+    readonly name: "updateILockerManager";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
         readonly internalType: "uint256";
         readonly name: "ratio";
         readonly type: "uint256";
@@ -1542,10 +1647,10 @@ declare const BOND_ABI: readonly [{
 }, {
     readonly inputs: readonly [{
         readonly internalType: "address";
-        readonly name: "newManager";
+        readonly name: "newTokenImplementation";
         readonly type: "address";
     }];
-    readonly name: "updateVaultManager";
+    readonly name: "updateTokenImplementation";
     readonly outputs: readonly [];
     readonly stateMutability: "nonpayable";
     readonly type: "function";
@@ -1587,16 +1692,6 @@ declare const BOND_ABI: readonly [{
     readonly type: "function";
 }, {
     readonly inputs: readonly [];
-    readonly name: "vaultManager";
-    readonly outputs: readonly [{
-        readonly internalType: "contract VaultManager";
-        readonly name: "";
-        readonly type: "address";
-    }];
-    readonly stateMutability: "view";
-    readonly type: "function";
-}, {
-    readonly inputs: readonly [];
     readonly name: "version";
     readonly outputs: readonly [{
         readonly internalType: "string";
@@ -1604,6 +1699,48 @@ declare const BOND_ABI: readonly [{
         readonly type: "string";
     }];
     readonly stateMutability: "pure";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "reserveToken";
+        readonly type: "address";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "start";
+        readonly type: "uint256";
+    }, {
+        readonly internalType: "uint256";
+        readonly name: "stop";
+        readonly type: "uint256";
+    }];
+    readonly name: "getTokensByReserveToken";
+    readonly outputs: readonly [{
+        readonly internalType: "address[]";
+        readonly name: "addresses";
+        readonly type: "address[]";
+    }];
+    readonly stateMutability: "view";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [{
+        readonly internalType: "address";
+        readonly name: "newManager";
+        readonly type: "address";
+    }];
+    readonly name: "updateVaultManager";
+    readonly outputs: readonly [];
+    readonly stateMutability: "nonpayable";
+    readonly type: "function";
+}, {
+    readonly inputs: readonly [];
+    readonly name: "vaultManager";
+    readonly outputs: readonly [{
+        readonly internalType: "contract VaultManager";
+        readonly name: "";
+        readonly type: "address";
+    }];
+    readonly stateMutability: "view";
     readonly type: "function";
 }, {
     readonly inputs: readonly [{
@@ -12120,6 +12257,7 @@ declare class Client {
             [x: `bytes31[${string}]`]: undefined;
             [x: `int[${string}]`]: undefined;
             [x: `int56[${string}]`]: undefined;
+            [x: `int112[${string}]`]: undefined;
             [x: `int32[${string}]`]: undefined;
             [x: `int48[${string}]`]: undefined;
             [x: `int8[${string}]`]: undefined;
@@ -12131,7 +12269,6 @@ declare class Client {
             [x: `int88[${string}]`]: undefined;
             [x: `int96[${string}]`]: undefined;
             [x: `int104[${string}]`]: undefined;
-            [x: `int112[${string}]`]: undefined;
             [x: `int120[${string}]`]: undefined;
             [x: `int128[${string}]`]: undefined;
             [x: `int136[${string}]`]: undefined;
@@ -12152,6 +12289,7 @@ declare class Client {
             [x: `int256[${string}]`]: undefined;
             [x: `uint[${string}]`]: undefined;
             [x: `uint56[${string}]`]: undefined;
+            [x: `uint112[${string}]`]: undefined;
             [x: `uint32[${string}]`]: undefined;
             [x: `uint48[${string}]`]: undefined;
             [x: `uint72[${string}]`]: undefined;
@@ -12159,7 +12297,6 @@ declare class Client {
             [x: `uint88[${string}]`]: undefined;
             [x: `uint96[${string}]`]: undefined;
             [x: `uint104[${string}]`]: undefined;
-            [x: `uint112[${string}]`]: undefined;
             [x: `uint120[${string}]`]: undefined;
             [x: `uint136[${string}]`]: undefined;
             [x: `uint144[${string}]`]: undefined;
@@ -12221,6 +12358,7 @@ declare class Client {
             bytes30?: undefined;
             bytes31?: undefined;
             int56?: undefined;
+            int112?: undefined;
             int32?: undefined;
             int48?: undefined;
             int8?: undefined;
@@ -12232,7 +12370,6 @@ declare class Client {
             int88?: undefined;
             int96?: undefined;
             int104?: undefined;
-            int112?: undefined;
             int120?: undefined;
             int128?: undefined;
             int136?: undefined;
@@ -12252,6 +12389,7 @@ declare class Client {
             int248?: undefined;
             int256?: undefined;
             uint56?: undefined;
+            uint112?: undefined;
             uint32?: undefined;
             uint48?: undefined;
             uint72?: undefined;
@@ -12259,7 +12397,6 @@ declare class Client {
             uint88?: undefined;
             uint96?: undefined;
             uint104?: undefined;
-            uint112?: undefined;
             uint120?: undefined;
             uint136?: undefined;
             uint144?: undefined;

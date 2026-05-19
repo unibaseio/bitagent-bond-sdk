@@ -152,7 +152,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "3.1.4";
+var version = "3.1.5";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -1452,6 +1452,19 @@ const BOND_ABI = [
     anonymous: false,
     inputs: [
       {
+        indexed: true,
+        internalType: "address",
+        name: "adapter",
+        type: "address"
+      }
+    ],
+    name: "DexAdapterUpdated",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: false,
         internalType: "uint64",
         name: "version",
@@ -1715,6 +1728,49 @@ const BOND_ABI = [
       }
     ],
     name: "TokenGraduated",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "token",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "reserveToken",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "poolId",
+        type: "bytes32"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "lpTokenId",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "tokenAmount",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "reserveTokenAmount",
+        type: "uint256"
+      }
+    ],
+    name: "TokenGraduatedV4",
     type: "event"
   },
   {
@@ -2041,6 +2097,19 @@ const BOND_ABI = [
       {
         internalType: "address",
         name: "lockerRecipient",
+        type: "address"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "dexAdapter",
+    outputs: [
+      {
+        internalType: "contract IDexAdapter",
+        name: "",
         type: "address"
       }
     ],
@@ -2457,26 +2526,35 @@ const BOND_ABI = [
     inputs: [
       {
         internalType: "address",
-        name: "reserveToken",
+        name: "",
         type: "address"
-      },
+      }
+    ],
+    name: "graduatedTokenLpIds",
+    outputs: [
       {
         internalType: "uint256",
-        name: "start",
-        type: "uint256"
-      },
-      {
-        internalType: "uint256",
-        name: "stop",
+        name: "",
         type: "uint256"
       }
     ],
-    name: "getTokensByReserveToken",
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
+    ],
+    name: "graduatedTokenPoolIds",
     outputs: [
       {
-        internalType: "address[]",
-        name: "addresses",
-        type: "address[]"
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32"
       }
     ],
     stateMutability: "view",
@@ -2582,7 +2660,7 @@ const BOND_ABI = [
       },
       {
         internalType: "address",
-        name: "vaultManager_",
+        name: "lockerManager_",
         type: "address"
       },
       {
@@ -2594,6 +2672,19 @@ const BOND_ABI = [
     name: "initialize",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "lockerManager",
+    outputs: [
+      {
+        internalType: "contract ILockerManager",
+        name: "",
+        type: "address"
+      }
+    ],
+    stateMutability: "view",
     type: "function"
   },
   {
@@ -2676,6 +2767,25 @@ const BOND_ABI = [
     type: "function"
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
+    ],
+    name: "poolVersionOf",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
     inputs: [],
     name: "positionManager",
     outputs: [
@@ -2752,6 +2862,19 @@ const BOND_ABI = [
       }
     ],
     name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "adapter",
+        type: "address"
+      }
+    ],
+    name: "setDexAdapter",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function"
@@ -3069,6 +3192,19 @@ const BOND_ABI = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "newManager",
+        type: "address"
+      }
+    ],
+    name: "updateILockerManager",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "ratio",
         type: "uint256"
@@ -3122,11 +3258,11 @@ const BOND_ABI = [
     inputs: [
       {
         internalType: "address",
-        name: "newManager",
+        name: "newTokenImplementation",
         type: "address"
       }
     ],
-    name: "updateVaultManager",
+    name: "updateTokenImplementation",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function"
@@ -3181,19 +3317,6 @@ const BOND_ABI = [
   },
   {
     inputs: [],
-    name: "vaultManager",
-    outputs: [
-      {
-        internalType: "contract VaultManager",
-        name: "",
-        type: "address"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
     name: "version",
     outputs: [
       {
@@ -3203,6 +3326,61 @@ const BOND_ABI = [
       }
     ],
     stateMutability: "pure",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "reserveToken",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "start",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "stop",
+        type: "uint256"
+      }
+    ],
+    name: "getTokensByReserveToken",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "addresses",
+        type: "address[]"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newManager",
+        type: "address"
+      }
+    ],
+    name: "updateVaultManager",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "vaultManager",
+    outputs: [
+      {
+        internalType: "contract VaultManager",
+        name: "",
+        type: "address"
+      }
+    ],
+    stateMutability: "view",
     type: "function"
   },
   {
