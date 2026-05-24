@@ -1,10 +1,14 @@
 import { randomBytes } from 'crypto';
-import { bytesToHex, getAddress, hexToBytes, hexToString, keccak256, stringToHex, Address } from 'viem';
+import { bytesToHex, getAddress, hexToBytes, hexToString, keccak256, numberToHex, stringToHex, Address } from 'viem';
 import { getBitAgentContractAddress, SdkSupportedChainIds, TokenType, Version } from '../constants/contracts';
 
 // our test code uses web3 library's soliditySha3 method
 // below is our code to generate the same hash using "viem" library
 // https://github.com/web3/web3.js/blob/f860b0481d7c1ef09ddaeb33098b2253ca694150/packages/web3-utils/src/hash.ts#L346C17-L346C17
+//
+// Salt formula (must match MCV2_Bond._clone) since v3.1.1-v4-chainid-salt:
+//   keccak256(abi.encodePacked(creator, symbol, bondAddress, block.chainid))
+// `block.chainid` is a uint256, so encodePacked emits 32 bytes big-endian.
 export function computeCreate2Address(
   chainId: number,
   tokenType: TokenType,
@@ -19,8 +23,10 @@ export function computeCreate2Address(
     version,
   );
   const hexedSymbol = stringToHex(tokenSymbol);
+  // uint256 chainId, packed as 32-byte big-endian to match abi.encodePacked(uint256).
+  const hexedChainId = numberToHex(BigInt(chainId), { size: 32 });
 
-  const packed: `0x${string}` = `0x${[creator, hexedSymbol, bondAddress]
+  const packed: `0x${string}` = `0x${[creator, hexedSymbol, bondAddress, hexedChainId]
     .map((x) => x?.replace('0x', ''))
     .join('')
     .toLowerCase()}`;

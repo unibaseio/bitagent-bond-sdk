@@ -172,7 +172,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "3.1.5";
+var version = "3.1.6";
 var main = "./dist/index.cjs";
 var module$1 = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -9858,7 +9858,8 @@ function computeCreate2Address(chainId, tokenType, tokenSymbol, creator, version
     version
   );
   const hexedSymbol = viem.stringToHex(tokenSymbol);
-  const packed = `0x${[creator, hexedSymbol, bondAddress].map((x) => x?.replace("0x", "")).join("").toLowerCase()}`;
+  const hexedChainId = viem.numberToHex(BigInt(chainId), { size: 32 });
+  const packed = `0x${[creator, hexedSymbol, bondAddress, hexedChainId].map((x) => x?.replace("0x", "")).join("").toLowerCase()}`;
   const salt = viem.keccak256(packed);
   const creationCode = [
     "0x3d602d80600a3d3981f3363d3d373d3d3d363d73",

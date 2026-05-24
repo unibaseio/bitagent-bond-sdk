@@ -1,6 +1,6 @@
 import * as chains from 'viem/chains';
 import { mainnet, optimism, optimismSepolia, arbitrum, avalanche, polygon, bsc, bscTestnet, base, baseSepolia, sepolia, blast, blastSepolia, avalancheFuji, degen, cyberTestnet, kaia, cyber, ham, zora } from 'viem/chains';
-import { parseUnits, formatUnits, isAddress, http, createWalletClient, custom, createPublicClient, fallback, publicActions, stringToHex, keccak256, hexToBytes, getAddress, bytesToHex, maxUint256 } from 'viem';
+import { parseUnits, formatUnits, isAddress, http, createWalletClient, custom, createPublicClient, fallback, publicActions, stringToHex, numberToHex, keccak256, hexToBytes, getAddress, bytesToHex, maxUint256 } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import MerkleTree from 'merkletreejs';
 import { randomBytes } from 'crypto';
@@ -152,7 +152,7 @@ var files = [
 ];
 var type = "module";
 var license = "BSD-3-Clause";
-var version = "3.1.5";
+var version = "3.1.6";
 var main = "./dist/index.cjs";
 var module = "./dist/index.mjs";
 var types = "./dist/index.d.ts";
@@ -9838,7 +9838,8 @@ function computeCreate2Address(chainId, tokenType, tokenSymbol, creator, version
     version
   );
   const hexedSymbol = stringToHex(tokenSymbol);
-  const packed = `0x${[creator, hexedSymbol, bondAddress].map((x) => x?.replace("0x", "")).join("").toLowerCase()}`;
+  const hexedChainId = numberToHex(BigInt(chainId), { size: 32 });
+  const packed = `0x${[creator, hexedSymbol, bondAddress, hexedChainId].map((x) => x?.replace("0x", "")).join("").toLowerCase()}`;
   const salt = keccak256(packed);
   const creationCode = [
     "0x3d602d80600a3d3981f3363d3d373d3d3d363d73",
